@@ -30,7 +30,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.habittracker.ui.navigation.Screen
 import com.example.habittracker.ui.screen.calendar.CalendarScreen
 import com.example.habittracker.ui.screen.settings.SettingsScreen
+import com.example.habittracker.ui.screen.spheres.AddSphereScreen
 import com.example.habittracker.ui.screen.spheres.SpheresScreen
+import com.example.habittracker.ui.screen.tasks.AddTaskScreen
 import com.example.habittracker.ui.screen.tasks.TasksScreen
 import com.example.habittracker.ui.theme.HabitTrackerTheme
 
@@ -108,9 +110,39 @@ fun AppNavigation() {
             startDestination = Screen.TaskScreen.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Screen.TaskScreen.route) { TasksScreen() }
+//            Tasks
+            composable(Screen.TaskScreen.route) {
+                TasksScreen(
+                    onNavigateAdd = {
+                        navController.navigate(Screen.AddTaskScreen.route)
+                    }
+                )
+            }
+            composable(Screen.AddTaskScreen.route) {
+                AddTaskScreen(
+                    onNavigateBack = {
+                        navController.navigate(Screen.TaskScreen.route)
+                    }
+                )
+            }
+//            Calendar
             composable(Screen.CalendarScreen.route) { CalendarScreen() }
-            composable(Screen.SpheresScreen.route) { SpheresScreen() }
+//            Spheres
+            composable(Screen.SpheresScreen.route) {
+                SpheresScreen(
+                    onNavigationAdd = {
+                        navController.navigate(Screen.AddSphereScreen.route)
+                    }
+                )
+            }
+            composable(Screen.AddSphereScreen.route) {
+                AddSphereScreen(
+                    onNavigateBack = {
+                        navController.navigate(Screen.SpheresScreen.route)
+                    }
+                )
+            }
+//            Settings
             composable(Screen.SettingsScreen.route) { SettingsScreen() }
         }
     }

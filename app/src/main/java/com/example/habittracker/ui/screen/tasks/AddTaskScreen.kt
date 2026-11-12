@@ -13,11 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.habittracker.R
 
-@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddTaskScreen(
-//    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit
 ) {
     var title by remember { mutableStateOf("") }
     var importance by remember { mutableFloatStateOf(3f) }
@@ -29,7 +28,7 @@ fun AddTaskScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.AddTaskScreen_Header)) },
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = onNavigateBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Назад")
                     }
                 }

@@ -15,7 +15,7 @@ import com.example.habittracker.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddSphereScreen(
-//    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit
 ) {
     var name by remember { mutableStateOf("") }
 
@@ -24,7 +24,7 @@ fun AddSphereScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.AddSphereScreenTitle)) },
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = onNavigateBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Назад")
                     }
                 }

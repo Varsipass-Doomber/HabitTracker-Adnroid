@@ -16,6 +16,7 @@ import com.example.habittracker.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpheresScreen(
+    onNavigationAdd : () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -24,7 +25,7 @@ fun SpheresScreen(
                     Text(stringResource(R.string.SpheresScreen_Header))
                         },
                 actions = {
-                    IconButton(onClick = { /* TODO */}) {
+                    IconButton(onClick = onNavigationAdd) {
                         Icon(Icons.Default.Add, contentDescription = "Добавить сферу")
                     }
                 }

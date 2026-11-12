@@ -15,7 +15,9 @@ import com.example.habittracker.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TasksScreen() {
+fun TasksScreen(
+    onNavigateAdd : () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -23,7 +25,7 @@ fun TasksScreen() {
                     Text(stringResource(R.string.TasksScreen_Header))
                         },
                 actions = {
-                    IconButton(onClick = { /* TODO */ }) {
+                    IconButton(onClick = onNavigateAdd) {
                         Icon(Icons.Default.Add, contentDescription = "Добавить задачу")
                     }
                 }
