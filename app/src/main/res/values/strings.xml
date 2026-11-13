@@ -45,9 +45,9 @@
     <string name="SphereNameParameterFieldTitle">Название сферы</string>
     <string name="SaveFieldText">Сохранить</string>
     <string name="UserProgress_Header">Общий прогресс</string>
-    <string name="TaskCountStat_Text">Задач</string>
     <string name="XPCountStat_Text">Всего XP</string>
     <string name="StreakStat_Text">Серия</string>
+    <string name="ActiveDaysStat_Text">Всего активных дней</string>
 
 
 </resources>
