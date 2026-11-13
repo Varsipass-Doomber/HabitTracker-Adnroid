@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">HabitTracker</string>
+<!--    Utility String Resources-->
+    <string name="Placeholder_Text">PLACEHOLDER</string>
+
+<!--    Navigation String Resources-->
+    <string name="TasksNavigation_Title">Задачи</string>
+    <string name="CalendarNavigation_Title">Календарь</string>
+    <string name="SpheresNavigation_Title">Сферы</string>
+    <string name="SettingsNavigation_Title">Настройки</string>
+
+<!--    TasksScreen String Resources-->
+    <string name="TasksScreen_Header">Задачи</string>
+    <string name="TaskDangerSection_Header">Требует внимания</string>
+    <string name="TasksTodaySection_Header">Сегодня</string>
+    <string name="UpcomingTasksSection_Header">Скоро</string>
+
+<!--    CalendarScreen String Resources-->
+    <string name="CalendarScreen_Header">Календарь</string>
+    <string name="TasksAtDay_Header">Задачи на день:</string>
+    <string name="NoneTasksAtDay_Text">Нет задач на выбранный день.</string>
+
+<!--    SpheresScreen String Resources-->
+    <string name="SpheresScreen_Header">Сферы развития</string>
+    <string name="SphereLevel_Text">Уровень</string>
+
+<!--    SettingsScreen String Resources-->
+    <string name="SettingsScreen_Header">Настройки</string>
+    <string name="ThemeSetting_Header">Внешний вид</string>
+    <string name="DarkTheme_Text">Темная тема</string>
+    <string name="NotificationsSetting_Header">Уведомления</string>
+    <string name="DeadlineReminderSetting_Text">Напоминать о дедлайнах</string>
+
+<!--    AddTaskScreen String Resources-->
+    <string name="AddTaskScreen_Header">Новая задача</string>
+    <string name="TaskNameParameter_FieldTitle">Название задачи</string>
+    <string name="SphereChoiceParameter_FieldTitle">Сфера (выбор)</string>
+    <string name="ImportanceParameter_Header">Важность:</string>
+    <string name="DifficultyParameter_Header">Сложность:</string>
+    <string name="RepeatParameter_Header">Повторять задачу?</string>
+    <string name="SaveTask_Text">Сохранить</string>
+
+<!--    AddSphereScreen String Resources-->
+    <string name="AddSphereScreenTitle">Новая сфера</string>
+    <string name="SphereNameParameterFieldTitle">Название сферы</string>
+    <string name="SaveFieldText">Сохранить</string>
+    <string name="UserProgress_Header">Общий прогресс</string>
+    <string name="XPCountStat_Text">Всего XP</string>
+    <string name="StreakStat_Text">Серия</string>
+    <string name="ActiveDaysStat_Text">Всего активных дней</string>
+
+
+</resources>
