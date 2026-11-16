@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -63,6 +64,7 @@ fun AppNavigation() {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
+        contentWindowInsets = WindowInsets(0, 0, 0, 0),
         bottomBar = {
             NavigationBar(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -109,7 +111,7 @@ fun AppNavigation() {
         NavHost(
             navController = navController,
             startDestination = Screen.TaskScreen.route,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(bottom =  innerPadding.calculateBottomPadding())
         ) {
 //            Tasks
             composable(Screen.TaskScreen.route) {
