@@ -76,8 +76,8 @@ fun AppNavigation() {
                         selected = currentRoute == screen.route,
                         onClick = {
                             if (currentRoute != screen.route) {
+                                navController.popBackStack(navController.graph.startDestinationId, inclusive = false)
                                 navController.navigate(screen.route) {
-                                    popUpTo(navController.graph.startDestinationId) { saveState = true }
                                     launchSingleTop = true
                                     restoreState = true
                                 }
@@ -86,9 +86,10 @@ fun AppNavigation() {
                         colors = NavigationBarItemDefaults.colors(
                             selectedIconColor = MaterialTheme.colorScheme.onPrimary,
                             selectedTextColor = MaterialTheme.colorScheme.primary,
-                            indicatorColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
+                            indicatorColor = MaterialTheme.colorScheme.primary,
                             unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                            unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant),
+                            unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+                        ),
                         icon = {
                             val icon = when (screen) {
                                 Screen.TaskScreen -> Icons.Default.List
