@@ -41,18 +41,37 @@ fun SpheresScreen(
             item { Spacer(modifier = Modifier.height(5.dp)) }
             item { UserStats() }
             item { Spacer(modifier = Modifier.height(8.dp)) }
-            item { SphereCard(name = "Телосложение", level = 3, progress = 0.6f) }
-            item { SphereCard(name = "Учеба", level = 1, progress = 0.2f) }
-            item { SphereCard(name = "Готовка", level = 5, progress = 0.9f) }
+            item {
+                SphereCard(
+                    name = "Телосложение", level = 3, progress = 0.6f,
+                    onSphereClick = { /* TODO: Implement editing */ }
+                )
+            }
+            item {
+                SphereCard(
+                    name = "Учеба", level = 1, progress = 0.2f,
+                    onSphereClick = { /* TODO: Implement editing */ }
+                )
+            }
+            item {
+                SphereCard(
+                    name = "Готовка", level = 5, progress = 0.9f,
+                    onSphereClick = { /* TODO: Implement editing */ }
+                )
+            }
         }
     }
 }
 
 @Composable
-fun SphereCard(name: String, level: Int, progress: Float) {
+fun SphereCard(
+    name: String, level: Int, progress: Float, // TODO: Replace fake parameters
+    onSphereClick: () -> (Unit)
+) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        onClick = onSphereClick
     ) {
         Column(
             modifier = Modifier.padding(16.dp))

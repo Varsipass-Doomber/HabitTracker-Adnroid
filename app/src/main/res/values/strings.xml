@@ -47,7 +47,7 @@
     <string name="UserProgress_Header">Общий прогресс</string>
     <string name="XPCountStat_Text">Всего XP</string>
     <string name="StreakStat_Text">Серия</string>
-    <string name="ActiveDaysStat_Text">Всего активных дней</string>
+    <string name="ActiveDaysStat_Text">Активных дней</string>
 
 
 </resources>

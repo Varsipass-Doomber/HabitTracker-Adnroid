@@ -1,9 +1,7 @@
 package com.example.habittracker.ui.screen.tasks
 
-import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
@@ -11,7 +9,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -51,8 +48,13 @@ fun TasksScreen(
                     modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
                 )
             }
-            item { TaskCard(title = "Просроченная задача", sphere = "Телосложение", xp = 15) }
-
+            item {
+                TaskCard(
+                    title = "Просроченная задача", sphere = "Телосложение", xp = 15,
+                    onCardClick = { /* TODO: Implement editing */ },
+                    onDoneClick = { /* TODO: Implement database */ }
+                )
+            }
             item {
                 Text(
                     text = stringResource(R.string.TasksTodaySection_Header),
@@ -60,8 +62,20 @@ fun TasksScreen(
                     modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
                 )
             }
-            item { TaskCard(title = "Сделать зарядку", sphere = "Телосложение", xp = 10) }
-            item { TaskCard(title = "Выпить 8 стаканов воды", sphere = "Здоровье", xp = 12) }
+            item {
+                TaskCard(
+                    title = "Сделать зарядку", sphere = "Телосложение", xp = 10,
+                    onCardClick = { /* TODO: Implement editing */ },
+                    onDoneClick = { /* TODO: Implement database */ }
+                )
+            }
+            item {
+                TaskCard(
+                    title = "Выпить 8 стаканов воды", sphere = "Здоровье", xp = 12,
+                    onCardClick = { /* TODO: Implement editing */ },
+                    onDoneClick = { /* TODO: Implement database */ }
+                )
+            }
 
             item {
                 Text(
@@ -70,16 +84,27 @@ fun TasksScreen(
                     modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
                 )
             }
-            item { TaskCard(title = "Прочитать главу книги", sphere = "Учеба", xp = 20) }
+            item {
+                TaskCard(
+                    title = "Прочитать главу книги", sphere = "Учеба", xp = 20,
+                    onCardClick = { /* TODO: Implement editing */ },
+                    onDoneClick = { /* TODO: Implement database */ }
+                )
+            }
         }
     }
 }
 
 @Composable
-fun TaskCard(title: String, sphere: String, xp: Int) {
+fun TaskCard(
+    title: String, sphere: String, xp: Int, // TODO: Replace fake parameters
+    onCardClick: () -> Unit,
+    onDoneClick: () -> Unit
+) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        onClick = onCardClick
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
@@ -94,7 +119,7 @@ fun TaskCard(title: String, sphere: String, xp: Int) {
             }
             Text(text = "+$xp XP", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
             IconButton(
-                onClick = { /* TODO */ },
+                onClick = onDoneClick,
                 shape = AppShapes.medium
             ) {
                 Icon(Icons.Default.Check, contentDescription = "Выполнить задачу")
