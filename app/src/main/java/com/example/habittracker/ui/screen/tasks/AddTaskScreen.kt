@@ -65,6 +65,7 @@ fun AddTaskScreen(
                 colors = SliderDefaults.colors(
                     thumbColor = MaterialTheme.colorScheme.primary,
                     activeTrackColor = MaterialTheme.colorScheme.primary,
+                    inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant
                 ),
                 value = importance,
                 onValueChange = { importance = it },
@@ -76,6 +77,7 @@ fun AddTaskScreen(
                 colors = SliderDefaults.colors(
                     thumbColor = MaterialTheme.colorScheme.primary,
                     activeTrackColor = MaterialTheme.colorScheme.primary,
+                    inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant
                 ),
                 value = difficulty,
                 onValueChange = { difficulty = it },
