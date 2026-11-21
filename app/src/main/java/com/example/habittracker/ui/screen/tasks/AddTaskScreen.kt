@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.habittracker.R
+import com.example.habittracker.domain.model.TaskEntity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,7 +24,7 @@ fun AddTaskScreen(
     var title by remember { mutableStateOf("") }
     var importance by remember { mutableFloatStateOf(3f) }
     var difficulty by remember { mutableFloatStateOf(3f) }
-    var isHabit by remember { mutableStateOf(false) }
+    var repeatType by remember { mutableStateOf(TaskEntity.REPEAT_NONE) }
     var selectedSphere by remember { mutableStateOf("") } // TODO: Replace with actual object
 
     Scaffold(
@@ -96,11 +97,14 @@ fun AddTaskScreen(
                         uncheckedThumbColor = MaterialTheme.colorScheme.onSurfaceVariant,
                         uncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant
                     ),
-                    checked = isHabit,
-                    onCheckedChange = { isHabit = it }
+                    checked = repeatType != TaskEntity.REPEAT_NONE,
+                    onCheckedChange = { isChecked ->
+                        repeatType = if (isChecked) TaskEntity.REPEAT_DAILY
+                        else TaskEntity.REPEAT_NONE
+                    }
                 )
             }
-            if (isHabit) {
+            if (repeatType != TaskEntity.REPEAT_NONE) {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                     FilterChip(
                         colors = FilterChipDefaults.filterChipColors(
@@ -109,8 +113,8 @@ fun AddTaskScreen(
                             labelColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             containerColor = MaterialTheme.colorScheme.surfaceVariant
                             ),
-                        selected = true,
-                        onClick = { /* TODO */ },
+                        selected = repeatType == TaskEntity.REPEAT_DAILY,
+                        onClick = { repeatType = TaskEntity.REPEAT_DAILY },
                         label = { Text("Каждый день") }
                     )
                     FilterChip(
@@ -120,8 +124,8 @@ fun AddTaskScreen(
                             labelColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             containerColor = MaterialTheme.colorScheme.surfaceVariant
                         ),
-                        selected = false,
-                        onClick = { /* TODO */ },
+                        selected = repeatType == TaskEntity.REPEAT_WEEKLY,
+                        onClick = { repeatType = TaskEntity.REPEAT_WEEKLY },
                         label = { Text("По дням недели") }
                     )
                 }
