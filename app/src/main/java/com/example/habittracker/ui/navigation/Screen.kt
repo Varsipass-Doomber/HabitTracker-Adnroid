@@ -7,4 +7,7 @@ sealed class Screen(val route : String) {
     object SettingsScreen : Screen("settings_screen")
     object AddTaskScreen : Screen("add_task_screen")
     object AddSphereScreen : Screen("add_sphere_screen")
+    object SphereDetailScreen : Screen("sphere_detail_screen/{sphereId}") {
+        fun createRoute(sphereId: Long) = "sphere_detail_screen/$sphereId"
+    }
 }

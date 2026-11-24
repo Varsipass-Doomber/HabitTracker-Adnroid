@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">HabitTracker</string>
 <!--    Utility String Resources-->
-    <string name="Placeholder_Text">PLACEHOLDER</string>
+    <string name="Placeholder_Text" translatable="false">PLACEHOLDER</string>
 
 <!--    Navigation String Resources-->
     <string name="TasksNavigation_Title">Задачи</string>
@@ -23,6 +23,7 @@
 <!--    SpheresScreen String Resources-->
     <string name="SpheresScreen_Header">Сферы развития</string>
     <string name="SphereLevel_Text">Уровень</string>
+    <string name="SpheresNone_Text">Сфер пока нет. Добавьте первую!</string>
 
 <!--    SettingsScreen String Resources-->
     <string name="SettingsScreen_Header">Настройки</string>
@@ -48,6 +49,7 @@
     <string name="XPCountStat_Text">Всего XP</string>
     <string name="StreakStat_Text">Серия</string>
     <string name="ActiveDaysStat_Text">Активных дней</string>
+
 
 
 </resources>

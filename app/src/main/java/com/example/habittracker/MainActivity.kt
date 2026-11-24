@@ -23,16 +23,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.habittracker.ui.navigation.Screen
 import com.example.habittracker.ui.screen.calendar.CalendarScreen
 import com.example.habittracker.ui.screen.settings.SettingsScreen
 import com.example.habittracker.ui.screen.spheres.AddSphereScreen
+import com.example.habittracker.ui.screen.spheres.SphereDetailScreen
 import com.example.habittracker.ui.screen.spheres.SpheresScreen
+import com.example.habittracker.ui.screen.spheres.SpheresViewModel
 import com.example.habittracker.ui.screen.tasks.AddTaskScreen
 import com.example.habittracker.ui.screen.tasks.TasksScreen
 import com.example.habittracker.ui.theme.HabitTrackerTheme
@@ -52,6 +58,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
+    val context = LocalContext.current
+    val app = context.applicationContext as App
+
 
 
     val items = listOf(
@@ -128,23 +137,44 @@ fun AppNavigation() {
                     }
                 )
             }
+
 //            Calendar
             composable(Screen.CalendarScreen.route) { CalendarScreen() }
+
 //            Spheres
             composable(Screen.SpheresScreen.route) {
+                val spheresViewModel: SpheresViewModel = viewModel(
+                    factory = SpheresViewModel.provideFactory(app.container.sphereRepository)
+                )
                 SpheresScreen(
-                    onNavigationAdd = {
-                        navController.navigate(Screen.AddSphereScreen.route)
+                    viewModel = spheresViewModel,
+                    onNavigationAdd = { navController.navigate(Screen.AddSphereScreen.route) },
+                    onSphereClick = { sphereId ->
+                        navController.navigate(Screen.SphereDetailScreen.createRoute(sphereId))
                     }
                 )
             }
             composable(Screen.AddSphereScreen.route) {
+                val spheresViewModel: SpheresViewModel = viewModel(
+                    factory = SpheresViewModel.provideFactory(app.container.sphereRepository)
+                )
                 AddSphereScreen(
-                    onNavigateBack = {
-                        navController.navigate(Screen.SpheresScreen.route)
-                    }
+                    onNavigateBack = { navController.popBackStack() },
+                    onSave = { name, selectedColor -> spheresViewModel.addSphere(name, selectedColor) }
                 )
             }
+
+            composable(
+                route = Screen.SphereDetailScreen.route,
+                arguments = listOf(navArgument("sphereId") { type = NavType.LongType })
+            ) { backStackEntry ->
+                val sphereId = backStackEntry.arguments?.getLong("sphereId") ?: 0L
+                SphereDetailScreen(
+                    sphereId = sphereId,
+                    onNavigateBack = { navController.popBackStack() }
+                )
+            }
+
 //            Settings
             composable(Screen.SettingsScreen.route) { SettingsScreen() }
         }

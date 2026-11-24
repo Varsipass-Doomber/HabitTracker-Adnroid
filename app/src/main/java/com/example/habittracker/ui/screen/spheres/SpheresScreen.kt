@@ -2,21 +2,32 @@ package com.example.habittracker.ui.screen.spheres
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.habittracker.R
+import com.example.habittracker.domain.model.SphereEntity
+import androidx.core.graphics.toColorInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpheresScreen(
-    onNavigationAdd : () -> Unit
+    viewModel: SpheresViewModel,
+    onNavigationAdd : () -> Unit,
+    onSphereClick: (Long) -> Unit
 ) {
+    val spheres by viewModel.spheres.collectAsStateWithLifecycle()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -41,23 +52,28 @@ fun SpheresScreen(
             item { Spacer(modifier = Modifier.height(5.dp)) }
             item { UserStats() }
             item { Spacer(modifier = Modifier.height(8.dp)) }
-            item {
-                SphereCard(
-                    name = "Телосложение", level = 3, progress = 0.6f,
-                    onSphereClick = { /* TODO: Implement editing */ }
-                )
-            }
-            item {
-                SphereCard(
-                    name = "Учеба", level = 1, progress = 0.2f,
-                    onSphereClick = { /* TODO: Implement editing */ }
-                )
-            }
-            item {
-                SphereCard(
-                    name = "Готовка", level = 5, progress = 0.9f,
-                    onSphereClick = { /* TODO: Implement editing */ }
-                )
+
+            if (spheres.isEmpty()) {
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 32.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = stringResource(R.string.SpheresNone_Text),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            } else  {
+                items(spheres, key = { it.id }) { sphere ->
+                    SphereCard(
+                        sphere = sphere,
+                        onSphereClick = { onSphereClick(sphere.id) }
+                    )
+                }
             }
         }
     }
@@ -65,34 +81,39 @@ fun SpheresScreen(
 
 @Composable
 fun SphereCard(
-    name: String, level: Int, progress: Float, // TODO: Replace fake parameters
+    sphere: SphereEntity,
     onSphereClick: () -> (Unit)
 ) {
+    val barColor = Color(sphere.colorHex.toColorInt())
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         onClick = onSphereClick
     ) {
         Column(
-            modifier = Modifier.padding(16.dp))
-        {
+            modifier = Modifier.padding(16.dp)
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween)
-            {
-                Text(text = name, style = MaterialTheme.typography.titleLarge)
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = sphere.name, style = MaterialTheme.typography.titleLarge)
                 Text(
-                    text = stringResource(R.string.SphereLevel_Text) +  " $level",
+                    text = stringResource(R.string.SphereLevel_Text) +  "${sphere.level}",
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.primary)
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
+
             Spacer(modifier = Modifier.height(8.dp))
+
             LinearProgressIndicator(
-                progress = { progress },
+                progress = { 0.5f }, // TODO: Implement real percent calc
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(8.dp),
-                color = MaterialTheme.colorScheme.primary,
+                color = barColor,
                 trackColor = MaterialTheme.colorScheme.surfaceVariant
             )
         }
