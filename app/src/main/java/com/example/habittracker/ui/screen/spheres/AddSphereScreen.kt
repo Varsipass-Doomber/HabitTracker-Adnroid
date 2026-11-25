@@ -25,9 +25,13 @@ fun AddSphereScreen(
     onNavigateBack: () -> Unit,
     onSave: (String, String) -> Unit
 ) {
-    var name by remember { mutableStateOf("") }
     val colors = listOf("#7B5A43", "#4A6741", "#8B5A2B", "#5B4B8A", "#8B3A3A", "#4A6B8A")
     var selectedColor by remember { mutableStateOf(colors.first()) }
+
+    var name by remember { mutableStateOf("") }
+    var isError by remember { mutableStateOf(false) }
+
+
 
     Scaffold(
         topBar = {
@@ -50,12 +54,22 @@ fun AddSphereScreen(
         ) {
             OutlinedTextField(
                 value = name,
-                onValueChange = { name = it },
+                onValueChange = {
+                    if (it.length < 25) name = it
+                    isError = false
+                },
                 label = { Text(stringResource(R.string.SphereNameParameterFieldTitle)) },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                isError = isError,
+                supportingText = {
+                    if (isError) {
+                        Text("Длина названия от 4 до 30 символов")
+                    }
+                }
             )
 
             Text("Цвет сферы", style = MaterialTheme.typography.bodyMedium)
+
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 colors.forEach { colorHex ->
                     Box(
@@ -75,8 +89,10 @@ fun AddSphereScreen(
 
             Button(
                 onClick = {
-                    onSave(name, selectedColor)
-                    onNavigateBack()
+                    if (name.length in 4..<30) {
+                        onSave(name, selectedColor)
+                        onNavigateBack()
+                    } else isError = true
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
