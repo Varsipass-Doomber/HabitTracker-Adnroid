@@ -37,6 +37,7 @@ import com.example.habittracker.ui.screen.calendar.CalendarScreen
 import com.example.habittracker.ui.screen.settings.SettingsScreen
 import com.example.habittracker.ui.screen.spheres.AddSphereScreen
 import com.example.habittracker.ui.screen.spheres.SphereDetailScreen
+import com.example.habittracker.ui.screen.spheres.SphereDetailViewModel
 import com.example.habittracker.ui.screen.spheres.SpheresScreen
 import com.example.habittracker.ui.screen.spheres.SpheresViewModel
 import com.example.habittracker.ui.screen.tasks.AddTaskScreen
@@ -169,9 +170,19 @@ fun AppNavigation() {
                 arguments = listOf(navArgument("sphereId") { type = NavType.LongType })
             ) { backStackEntry ->
                 val sphereId = backStackEntry.arguments?.getLong("sphereId") ?: 0L
+
+                val sphereDetailViewModel: SphereDetailViewModel = viewModel(
+                    factory = SphereDetailViewModel.provideFactory(
+                        sphereRepository = app.container.sphereRepository,
+                        taskRepository = app.container.taskRepository,
+                        sphereId = sphereId
+                    )
+                )
+
                 SphereDetailScreen(
-                    sphereId = sphereId,
-                    onNavigateBack = { navController.popBackStack() }
+                    viewModel = sphereDetailViewModel,
+                    onNavigateBack = { navController.popBackStack() },
+                    onEditClick = { /* TODO: Add transition to sphere editing */ }
                 )
             }
 

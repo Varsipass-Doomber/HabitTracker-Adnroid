@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.habittracker.domain.model.SphereEntity
+import com.example.habittracker.domain.model.TaskEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -26,7 +27,7 @@ interface SphereDao {
         "SELECT * FROM ${SphereEntity.TABLE_NAME} " +
         "WHERE id = :sphereId"
     )
-    suspend fun getSphereById(sphereId: Long): SphereEntity?
+    fun getSphereById(sphereId: Long): Flow<SphereEntity?>
 
     @Query(
         "SELECT SUM(current_exp) " +

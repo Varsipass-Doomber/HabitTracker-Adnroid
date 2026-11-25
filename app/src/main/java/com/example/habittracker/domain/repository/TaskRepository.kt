@@ -8,10 +8,12 @@ interface TaskRepository {
     fun getActiveTasks(): Flow<List<TaskEntity>>
     suspend fun addTask(task: TaskEntity): Long
     suspend fun updateTask(task: TaskEntity)
+    fun getTasksBySphere(sphereId: Long) : Flow<List<TaskEntity>>
 }
 
 class TaskRepositoryImpl(private val taskDao: TaskDao) : TaskRepository {
     override fun getActiveTasks() = taskDao.getActiveTasks()
     override suspend fun addTask(task: TaskEntity) = taskDao.insertTask(task)
     override suspend fun updateTask(task: TaskEntity) = taskDao.updateTask(task)
+    override fun getTasksBySphere(sphereId: Long) = taskDao.getTasksBySphere(sphereId)
 }
