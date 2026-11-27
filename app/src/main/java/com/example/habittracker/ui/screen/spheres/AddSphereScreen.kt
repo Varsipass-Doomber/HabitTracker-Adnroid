@@ -30,6 +30,7 @@ fun AddSphereScreen(
 
     var name by remember { mutableStateOf("") }
     var isError by remember { mutableStateOf(false) }
+    var isSaving by remember { mutableStateOf(false) }
 
 
 
@@ -89,12 +90,17 @@ fun AddSphereScreen(
 
             Button(
                 onClick = {
-                    if (name.length in 4..<30) {
+                    if (name.length in 4..<30 && !isSaving) {
+                        isSaving = true
                         onSave(name, selectedColor)
                         onNavigateBack()
-                    } else isError = true
+                    } else {
+                        isError = true
+                        isSaving = false
+                    }
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !isSaving
             ) {
                 Text(stringResource(R.string.SaveFieldText))
             }
