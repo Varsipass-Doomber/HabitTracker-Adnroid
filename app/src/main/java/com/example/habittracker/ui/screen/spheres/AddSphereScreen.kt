@@ -19,6 +19,7 @@ fun AddSphereScreen(
     onNavigateBack: () -> Unit
 ) {
     var name by remember { mutableStateOf("") }
+    val isSaving = remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -47,7 +48,13 @@ fun AddSphereScreen(
             )
 
             Button(
-                onClick = { /* TODO */ },
+                onClick = {
+                    if (!isSaving.value) {
+                        isSaving.value = true
+                        /* TODO */
+                    }
+                },
+                enabled = !isSaving.value,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(stringResource(R.string.SaveFieldText))
